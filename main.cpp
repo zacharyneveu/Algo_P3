@@ -19,9 +19,16 @@ using namespace std; //standard name space
 //Main function
 int main()
 {
-	//Get name of grid file to read in and find all words
-	search();
+	//get grid file, find words, find matches and print them
+	findMatches()
 }
+
+
+//TODO: What do search and findMatches do? Current understanding: search finds
+//all words in square, findMatches calls search and prints out the words which
+//are matches.  But why is findMatches passed the grid and dictionary then??
+
+
 
 //the search function searches the grid and finds all words in the grid
 vector<string> search(dictionary list, grid matrix)
