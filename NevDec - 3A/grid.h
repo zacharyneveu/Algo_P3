@@ -24,4 +24,7 @@ public:
 
 	//Function to return matrix out of grid object
 	matrix<string> getGrid();
+
+	//Overloaded << operator to test printing matrix
+	friend ostream& operator<< (ostream& ostr, const grid& matrix);
 };

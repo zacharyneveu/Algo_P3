@@ -22,7 +22,7 @@ class matrix
    // Precondition: 0 <= i < nRows. a violation of this
    // precondition throws the indexRangeError exception.
    // Postcondition: if the operator is used on the left-hand
-   // side of an assignment statement, an element of row i 
+   // side of an assignment statement, an element of row i
    // is changed
 
    const vector<T>& operator[](int i) const;
@@ -93,7 +93,7 @@ template <typename T>
 void matrix<T>::resize(int numRows, int numCols)
 {
    int i;
-   
+
    // handle case of no size change with a return
    if (numRows == nRows && numCols == nCols)
       return;

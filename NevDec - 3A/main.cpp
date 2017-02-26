@@ -21,8 +21,10 @@ void findMatches(dictionary list, grid matrix);
 //Main function
 int main()
 {
-	dictionary d;
-	d.read("Dictionary.txt");
+	//dictionary d;
+	//d.read("Dictionary.txt");
+	grid g("input15.txt");
+	cout<<g<<endl;
 	//get grid file, find words, find matches and print them
 	//findMatches();
 	system("pause");

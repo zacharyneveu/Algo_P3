@@ -45,3 +45,16 @@ grid::grid(string filepath)
 	}
 	fin.close();
 }
+
+ostream& operator<< (ostream& ostr, grid& matrix)
+{
+	for (int i=0; i<matrix.getGrid().rows(); i++)
+	{
+		for (int j=0; j<matrix.getGrid().cols(); j++)
+		{
+			ostr<<matrix.getGrid()[i][j]<<" ";
+		}
+		ostr<<endl;
+	}
+	return ostr;
+}
