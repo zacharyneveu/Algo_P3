@@ -9,6 +9,7 @@
 //Includes
 #include<iostream>
 #include<vector>
+#include"d_matrix.h"
 #include<string>
 #include"grid.h"
 #include"dictionary.h"
@@ -40,7 +41,6 @@ int main()
 
 //the search function searches the grid and finds all words in the grid
 vector<string> search(dictionary list, grid matrix)
-search(d, g);
 {
 	string currWord;
 	vector<string> allWords;
@@ -101,11 +101,11 @@ search(d, g);
 void findMatches(dictionary list, grid matrix)
 {
 	vector<string> gridWords = search(list, matrix);
-	list.sort();
+	list.selectionSort();
 	int found = gridWords.size();
 	for (int i=0; i<found; i++)
 	{
-		if (list.lookup(gridWords.at(i)))
+		if (list.binarySearch(gridWords.at(i)))
 		{
 			cout<<gridWords.at(i)<<endl;
 		}

@@ -10,6 +10,7 @@
 #include<string>
 #include<iostream>
 #include"d_matrix.h"
+#include<fstream>
 
 using namespace std;
 
@@ -26,5 +27,5 @@ public:
 	matrix<string> getGrid();
 
 	//Overloaded << operator to test printing matrix
-	friend ostream& operator<< (ostream& ostr, const grid& matrix);
+	friend ostream& operator<< (ostream& ostr, grid& matrix);
 };
