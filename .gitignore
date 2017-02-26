@@ -1,0 +1,8 @@
+*.tlog
+NevDec - 3A/x64/Debug/NevDec - 3A.log
+*.pdb
+NevDec - 3A/x64/Debug/vc140.idb
+*.obj
+*.exe
+x64/Debug/NevDec - 3A.ilk
+*.suo
