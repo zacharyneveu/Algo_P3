@@ -22,6 +22,11 @@ public:
 	//constructor
 	dictionary() {}
 
+	//constructor with a given dictionary file
+	dictionary(string input): dictionary() {
+		read(input);
+	}
+
 	//read function reads from file into the dictionary vector
 	void read(string filepath);
 
@@ -30,11 +35,8 @@ public:
 
 	//lookup function uses binary search to determine if a word is in the
 	//dictionary, using binary search
-	bool lookup(string query);
+	bool binarySearch(string query);
 
 	//overloaded << operator prints the word list
 	friend ostream& operator<< (ostream& ostr, const dictionary &dictionary);
-
-	//return the dictionary
-	vector<string> getDictionary() const;
 };

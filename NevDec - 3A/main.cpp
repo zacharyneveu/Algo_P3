@@ -15,14 +15,33 @@
 
 //Standard Name Space
 using namespace std; //standard name space
-vector<string> search(dictionary list, grid matrix);
-void findMatches(dictionary list, grid matrix);
 
 //Main function
 int main()
 {
 	dictionary d;
-	d.read("Dictionary.txt");
+	d.read("partialDictionary.txt");
+	d.slectionSort();
+
+	string word = "vomits";
+	cout << "looing for " << word << endl;
+
+	if (d.binarySearch(word)) {
+		cout << "Found " << word << endl;
+	}
+	else {
+		cout << "Cound not find " << word << endl;
+	}
+
+	word = "vofdgdmits";
+	cout << "looing for " << word << endl;
+
+	if (d.binarySearch(word)) {
+		cout << "Found " << word << endl;
+	}
+	else {
+		cout << "Cound not find " << word << endl;
+	}
 	//get grid file, find words, find matches and print them
 	//findMatches();
 	system("pause");
@@ -35,7 +54,7 @@ int main()
 //are matches.  But why is findMatches passed the grid and dictionary then??
 
 
-
+/*
 //the search function searches the grid and finds all words in the grid
 vector<string> search(dictionary list, grid matrix)
 {
@@ -48,7 +67,7 @@ vector<string> search(dictionary list, grid matrix)
 void findMatches(dictionary list, grid matrix)
 {
 	vector<string> gridWords = search(list, matrix);
-	list.sort();
+	list.selectionSort();
 	int found = gridWords.size();
 	for (int i=0; i<found; i++)
 	{
@@ -57,6 +76,6 @@ void findMatches(dictionary list, grid matrix)
 			cout<<gridWords.at(i)<<endl;
 		}
 	}
-}
+}*/
 
 
