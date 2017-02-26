@@ -38,20 +38,29 @@ void dictionary::read(string input) {
 }
 
 //Sort function sorts words in dictionary vector using selectionsort
-void dictionary::slectionSort() {
+void dictionary::selectionSort() {
 	int dictLength = dict.size();
+	int min;
 	string temp;
-	for (int i = 0; i < dictLength - 1; i++) {
+	for (int i = 0; i < dictLength - 1; i++)
+	{
+		min = i;//set pos_min to the current index of array
 		for (int j = i + 1; j < dictLength; j++)
+		{
 
-			if (dict[i].compare(dict[j]) >= 0)
-			{
-				temp = dict[i];
-				dict[i] = dict[j];
-				dict[j] = temp;
-			}
+			if (dict[j] < dict[min])
+				min = j;
+			//pos_min will keep track of the index that min is in, this is needed when a swap happens
+		}
+
+		//if pos_min no longer equals i than a smaller value must have been found, so a swap must occur
+		if (min != i)
+		{
+			temp = dict[i];
+			dict[i] = dict[min];
+			dict[min] = temp;
+		}
 	}
-	return;
 }
 
 //lookup function uses binary search to determine if a word is in the

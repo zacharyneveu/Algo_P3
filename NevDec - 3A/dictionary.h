@@ -31,7 +31,7 @@ public:
 	void read(string filepath);
 
 	//Sort function sorts words in dictionary vector using selectionsort
-	void slectionSort();
+	void selectionSort();
 
 	//lookup function uses binary search to determine if a word is in the
 	//dictionary, using binary search
