@@ -11,6 +11,37 @@
 #include<string>
 #include<iostream>
 #include"grid.h"
+#include"d_matrix.h"
 
 //Standard Name Space
 using namespace std; //standard name space
+
+matrix<string> grid::getGrid()
+{
+	return letterGrid;
+}
+
+grid::grid(string filepath)
+{
+	int gridSize;
+	ifstream fin;
+	fin.open(filepath.c_str());
+	if(!fin)
+	{
+		cout<<"Sorry File Could Not Be Opened"<<endl;
+	}
+	string x = "";
+	for (int i=0; i<2; i++)
+	{
+		fin>>gridSize;
+	}
+	for (int j=0; j<gridSize; j++)
+	{
+		for (int k=0; k<gridSize; k++)
+		{
+			fin>>x;
+			letterGrid[j][k]=x;
+		}
+	}
+	fin.close();
+}

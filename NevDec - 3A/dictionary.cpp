@@ -84,7 +84,7 @@ bool dictionary::binarySearch(string query) {
 	return false;
 }
 
-//Overloaded << overator for printing
+//Overloaded << operator for printing
 ostream& operator<< (ostream& ostr, const dictionary& dictionary)
 {
 	//iterate over all elements in dictionary
