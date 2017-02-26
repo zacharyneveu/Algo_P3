@@ -38,10 +38,61 @@ int main()
 
 //the search function searches the grid and finds all words in the grid
 vector<string> search(dictionary list, grid matrix)
+search(d, g);
 {
-
-
-}
+	string currWord;
+	vector<string> allWords;
+	int modx = 0;
+	int mody = 0;
+	int rows = matrix.getGrid().rows();
+	int cols = matrix.getGrid().cols();
+	for (int row = 0; row<rows; row++)
+	{
+		for (int col = 0; col<cols; col++)
+		{
+			for (int length = 5; length<cols; length++)
+			{
+				for (int k = 0; k<length; k++)
+				{
+					currWord = "";	//Reset currWord each time
+					for (int direction = 0; direction<8; direction++)
+					{
+						switch (direction)
+						{
+						case 0:		//Right
+							modx = (col + k) % cols;
+							mody = row;
+						case 1:		//up right diagonal
+							modx = (col + k) % cols;
+							mody = (row + k) % rows;
+						case 2:		//up
+							modx = col;
+							mody = (row + k) % rows;
+						case 3:		//up left diagonal
+							modx = (col - k) % cols;
+							mody = (row + k) % rows;
+						case 4:		//left
+							modx = (col - k) % cols;
+							mody = row;
+						case 5:		//left down diagonal
+							modx = (col - k) % cols;
+							mody = (row - k) % rows;
+						case 6:		//down
+							modx = col;
+							mody = (row - k) % rows;
+						case 7:		//down right diagonal
+							modx = (col + k) % cols;
+							mody = (row - k) % rows;
+						}
+						currWord += matrix.getGrid()[mody][modx];
+						allWords.push_back(currWord);
+					}//end direction loop
+				}//end k loop
+			}//end length loop
+		}//End columns loop
+	}//End rows loop
+	return allWords;
+}//End function
 
 //findMatches function uses the search function to match words in the dictionary
 //with words found in the grid and prints all found matches
