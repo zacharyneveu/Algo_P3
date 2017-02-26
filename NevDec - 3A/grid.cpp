@@ -11,6 +11,31 @@
 #include<string>
 #include<iostream>
 #include"grid.h"
+#include<fstream> //included for file operations
 
 //Standard Name Space
 using namespace std; //standard name space
+
+grid::grid(string filepath)
+{
+	ifstream fin;
+	fin.open(filepath.c_str());
+	if(!fin)
+	{
+		cout<<"Sorry, File not Opened"<<endl;
+	}
+
+	char x;
+	int outsideCtr=0;
+	int insideCtr=0;	//counters
+	while(fin>>x)
+	{
+		while(x!='\n')//While not at end of line
+		{
+			lettergrid[outsideCtr][insideCtr]=x;
+			insideCtr++;
+		}
+		outsideCtr++;
+	}
+	fin.close();
+}

@@ -9,6 +9,7 @@
 #include<vector>
 #include<string>
 #include<iostream>
+#include"d_matrix.h"
 
 using namespace std;
 
@@ -16,7 +17,7 @@ using namespace std;
 class grid
 {
 private:
-	vector<vector<char>> grid;
+	matrix lettergrid;
 public:
 	//Constructor takes file name and extracts contents to matrix
 	grid(string filepath);
