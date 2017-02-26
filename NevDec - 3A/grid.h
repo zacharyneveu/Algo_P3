@@ -16,8 +16,8 @@ using namespace std;
 class grid
 {
 private:
-	vector<vector<char>> g;
+	vector<vector<char>> grid;
 public:
 	//Constructor takes file name and extracts contents to matrix
-	grid(string filepath) {};
+	grid(string filepath);
 };

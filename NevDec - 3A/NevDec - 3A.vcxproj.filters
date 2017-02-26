@@ -38,9 +38,6 @@
     <Text Include="input50.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="partialDictionary.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md">
