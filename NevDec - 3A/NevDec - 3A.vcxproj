@@ -28,6 +28,7 @@
     <Text Include="input15.txt" />
     <Text Include="input30.txt" />
     <Text Include="input50.txt" />
+    <Text Include="partialDictionary.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
