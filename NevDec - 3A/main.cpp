@@ -18,25 +18,23 @@
 
 //Standard Name Space
 using namespace std; //standard name space
-vector<string> search(dictionary list, grid matrix);
 void findMatches(dictionary list, grid matrix);
+void search();
 int mod(int a, int b);
 
 //Main function
 int main()
 {
-	dictionary d;
-	d.read("sortedDictionary.txt");
-	//cout<<d<<endl;
-	//d.selectionSort();
-	
+
+
+	search();
 	system("pause");
 	return 0;
 }
 
 
 //the search function searches the grid and finds all words in the grid
-vector<string> search(dictionary list, grid matrix)
+void findMatches(dictionary list, grid matrix)
 {
 	string currWord;
 	vector<string> allWords;
@@ -44,7 +42,7 @@ vector<string> search(dictionary list, grid matrix)
 	int mody = 0;
 	int rows = matrix.getGrid().rows();
 	int cols = matrix.getGrid().cols();
-	int counter = 0;
+	int dicIndex = 0;
 	for (int row = 0; row<rows; row++)
 	{
 		for (int col = 0; col<cols; col++)
@@ -93,14 +91,27 @@ vector<string> search(dictionary list, grid matrix)
 						}
 						currWord += matrix.getGrid()[mody][modx];
 					}//end k loop
-					if (list.binarySearch(currWord))
+
+					//Debugging lines
+					//cout<<"CurrWord: "<<currWord<<endl;
+					//cout<<list.binarySearch(currWord)<<endl;
+
+					dicIndex = list.binarySearch(currWord);
+					if (dicIndex)
 					{
-						allWords.push_back(currWord);
+						cout<<list.getDictionary()[dicIndex]<<" ";
+						cout<<"col: "<<col<<" ";
+						cout<<"row: "row<<" ";
+						cout<<dicIndex<<" ";
+						cout<<endl;
+						//Debug stuff
+						/*
 						cout<<"Found: "<<currWord<<endl;
 						cout<<"Direction "<<direction<<endl;
 						cout<<"Col "<<col<<endl;
 						cout<<"Row "<<row<<endl;
 						cout<<"Length "<<length<<endl;
+						*/
 					}
 					else
 					{
@@ -109,15 +120,16 @@ vector<string> search(dictionary list, grid matrix)
 					//cout<<"k = "<<k<<endl;
 					//cout<<"Direction = "<<direction<<endl;
 				}//end direction loop
-				cout<<"Length = "<<length<<endl;
+				//cout<<"Length = "<<length<<endl;
 			}//end length loop
-			cout<<"Col = "<<col<<endl;
+			//cout<<"Col = "<<col<<endl;
 		}//End columns loop
-		cout<<"Row = "<<row<<endl;
+		//cout<<"Row = "<<row<<endl;
 	}//End rows loop
-	return allWords;
 }//End function
 
+
+//Simple mod function used to calculate modulus, not remainder
 int mod (int a, int b)
 {
    int ret = a % b;
@@ -128,17 +140,20 @@ int mod (int a, int b)
 
 //findMatches function uses the search function to match words in the dictionary
 //with words found in the grid and prints all found matches
-void findMatches(dictionary list, grid matrix)
+void search()
 {
-	vector<string> gridWords = search(list, matrix);
-	list.selectionSort();
-	int found = gridWords.size();
-	for (int i = 0; i<found; i++)
-	{
-		if (list.binarySearch(gridWords.at(i)))
-		{
-			cout << gridWords.at(i) << endl;
-		}
-	}
-}
+	//Get grid name from user
+	string gridName;
+	cout<<"Enter the file name of the word grid: ";
+	cin>>gridName;
+	grid g(gridName);
+	//cout<<g<<endl;
 
+	//usee hard-coded dictionary
+	dictionary d;
+	d.read("testDictionary.txt");
+	//cout<<d<<endl;
+
+	d.selectionSort();
+	findMatches(d, g);
+}//End function
