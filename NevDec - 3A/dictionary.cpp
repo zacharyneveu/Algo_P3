@@ -111,10 +111,14 @@ Result dictionary::improvedBinarySearch(string query, int &index) {
 
 	//If the string has not been found and we are on the file compare.
 	//DUBUG
-	cout << dict[middle] << endl << endl;
+	cout << dict[middle - 1] << endl;
+	cout << dict[middle] << endl;
+	cout << dict[middle + 1] << endl;
 
 	//compare the dictionary entry of length query to see if query is a substring of the word
-	if (dict[middle].substr(0, query.length() - 1).compare(query) == 0 ) {
+	if (dict[middle].substr(0, query.length() - 1).compare(query) == 0 ||
+		dict[middle + 1].substr(0, query.length() - 1).compare(query) == 0 ||
+		dict[middle - 1].substr(0, query.length() - 1).compare(query) == 0 ) {
 		cout << "Not Found\n";
 		//set the index to less than 1
 		index = -2;
@@ -122,7 +126,7 @@ Result dictionary::improvedBinarySearch(string query, int &index) {
 	}
 
 	//Else the substring of the query does not exist in the dictionary
-	return NOSUBSTRING;
+	return NO_SUBSTRING;
 	cout << "No substring found, short circuiting\n";
 }
 
