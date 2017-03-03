@@ -23,8 +23,8 @@ vector<string> dictionary::getDictionary() const{
 void dictionary::read(string input) {
 	ifstream iFile(input);
 	string x;
-	int count;	
-	
+	//int count;
+
 	if (iFile) {
 		string x;
 		int count = 0;

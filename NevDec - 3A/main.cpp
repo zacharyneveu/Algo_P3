@@ -42,14 +42,13 @@ void findMatches(dictionary list, grid matrix)
 	int mody = 0;
 	int rows = matrix.getGrid().rows();
 	int cols = matrix.getGrid().cols();
-	int dicIndex = 0;
 	for (int row = 0; row<rows; row++)
 	{
 		for (int col = 0; col<cols; col++)
 		{
-			for (int length = MINLENGTH; length<=cols; length++)
+			for (int direction = 0; direction<8; direction++)
 			{
-				for (int direction = 0; direction<8; direction++)
+				for (int length = MINLENGTH; length<=cols; length++)
 				{
 					currWord = "";	//Reset currWord each time
 					for (int k = 0; k<length; k++)
@@ -96,32 +95,30 @@ void findMatches(dictionary list, grid matrix)
 					//cout<<"CurrWord: "<<currWord<<endl;
 					//cout<<list.binarySearch(currWord)<<endl;
 
-					dicIndex = list.binarySearch(currWord);
-					if (dicIndex)
+					int index = 0; //variable to be returned by binary search
+					switch(list.improvedBinarySearch(currWord,index))
 					{
-						cout<<list.getDictionary()[dicIndex]<<" ";
-						cout<<"col: "<<col<<" ";
-						cout<<"row: "row<<" ";
-						cout<<dicIndex<<" ";
-						cout<<endl;
-						//Debug stuff
-						/*
-						cout<<"Found: "<<currWord<<endl;
-						cout<<"Direction "<<direction<<endl;
-						cout<<"Col "<<col<<endl;
-						cout<<"Row "<<row<<endl;
-						cout<<"Length "<<length<<endl;
-						*/
+						case FOUND:
+							cout<<list.getDictionary()[index]<<" ";
+							cout<<"col: "<<col<<" ";
+							cout<<"row: "<<row<<" ";
+							cout<<index<<" ";
+							cout<<endl;
+							break;
+						case NOT_FOUND:
+							continue;
+							break;
+						case NO_SUBSTRING:
+							goto exit_length_loop;
+							break;
 					}
-					else
-					{
-						continue;
-					}
+
 					//cout<<"k = "<<k<<endl;
 					//cout<<"Direction = "<<direction<<endl;
-				}//end direction loop
+				}//end length loop
+				exit_length_loop: ;
 				//cout<<"Length = "<<length<<endl;
-			}//end length loop
+			}//end direction loop
 			//cout<<"Col = "<<col<<endl;
 		}//End columns loop
 		//cout<<"Row = "<<row<<endl;
