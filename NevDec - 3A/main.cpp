@@ -105,7 +105,8 @@ void findMatches(dictionary list, grid matrix)
 							cout<<index<<" ";
 							cout<<endl;
 							break;
-						case NOT_FOUND:
+	int dicIndex = 0;
+u					case NOT_FOUND:
 							continue;
 							break;
 						case NO_SUBSTRING:
