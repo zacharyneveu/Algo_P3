@@ -26,19 +26,10 @@ int mod(int a, int b);
 int main()
 {
 	dictionary d;
-	d.read("testDictionary.txt");
-	cout<<d<<endl;
-
-	grid g("testGrid.txt");
-	cout<<g<<endl;
-
-	vector<string> results;
-	//search dictionary and grid for matches
-	results = search(d,g);
-	for (int i=0; i<results.size(); i++)
-	{
-		cout<<results.at(i)<<endl;
-	}
+	d.read("sortedDictionary.txt");
+	//cout<<d<<endl;
+	//d.selectionSort();
+	
 	system("pause");
 	return 0;
 }
@@ -142,13 +133,12 @@ void findMatches(dictionary list, grid matrix)
 	vector<string> gridWords = search(list, matrix);
 	list.selectionSort();
 	int found = gridWords.size();
-	for (int i=0; i<found; i++)
+	for (int i = 0; i<found; i++)
 	{
 		if (list.binarySearch(gridWords.at(i)))
 		{
-			cout<<gridWords.at(i)<<endl;
+			cout << gridWords.at(i) << endl;
 		}
 	}
 }
-
 

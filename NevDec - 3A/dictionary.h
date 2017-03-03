@@ -14,6 +14,10 @@
 //standard namespace
 using namespace std;
 
+typedef enum result {
+	FOUND, NOT_FOUND, NOSUBSTRING
+} Result;
+
 class dictionary
 {
 private:
@@ -35,7 +39,11 @@ public:
 
 	//lookup function uses binary search to determine if a word is in the
 	//dictionary, using binary search
-	bool binarySearch(string query);
+	int binarySearch(string query);
+
+	//lookup function uses binary search to determine if a word is in the
+	//dictionary, using binary search
+	Result improvedBinarySearch(string query, int &index);
 
 	//overloaded << operator prints the word list
 	friend ostream& operator<< (ostream& ostr, const dictionary &dictionary);

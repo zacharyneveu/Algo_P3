@@ -23,7 +23,9 @@ vector<string> dictionary::getDictionary() const{
 void dictionary::read(string input) {
 	ifstream iFile(input);
 	string x;
-	int count;	if (iFile) {
+	int count;	
+	
+	if (iFile) {
 		string x;
 		int count = 0;
 		while (iFile >> x) {
@@ -44,6 +46,9 @@ void dictionary::selectionSort() {
 	string temp;
 	for (int i = 0; i < dictLength - 1; i++)
 	{
+		if (i % 50 == 0) {
+			printf("%d items sorted\n", i);
+		}
 		min = i;//set pos_min to the current index of array
 		for (int j = i + 1; j < dictLength; j++)
 		{
@@ -65,7 +70,7 @@ void dictionary::selectionSort() {
 
 //lookup function uses binary search to determine if a word is in the
 //dictionary, using binary search
-bool dictionary::binarySearch(string query) {
+int dictionary::binarySearch(string query) {
 	int low = 0,             // First array element
 		high = dict.size() - 1,       // Last array element
 		middle;
@@ -74,14 +79,51 @@ bool dictionary::binarySearch(string query) {
 		middle = (low + high) / 2;     // Calculate mid point
 		if (dict[middle].compare(query) == 0)      // If value is found at mid
 		{
-			return true;
+			return middle;
 		}
 		else if (dict[middle].compare(query) > 0)  // If value is in lower half
 			high = middle - 1;
 		else
 			low = middle + 1;           // If value is in upper half
 	}
-	return false;
+	return -1;
+}
+
+//lookup function uses binary search to determine if a word is in the
+//dictionary, using binary search
+Result dictionary::improvedBinarySearch(string query, int &index) {
+	int low = 0,             // First array element
+		high = dict.size() - 1,       // Last array element
+		middle;
+	while (low < high)
+	{
+		middle = (low + high) / 2;     // Calculate mid point
+		if (dict[middle].compare(query) == 0)      // If value is found at mid
+		{
+			index = middle;
+			return FOUND;
+		}
+		else if (dict[middle].compare(query) > 0)  // If value is in lower half
+			high = middle - 1;
+		else
+			low = middle + 1;           // If value is in upper half
+	} //end while
+
+	//If the string has not been found and we are on the file compare.
+	//DUBUG
+	cout << dict[middle] << endl << endl;
+
+	//compare the dictionary entry of length query to see if query is a substring of the word
+	if (dict[middle].substr(0, query.length() - 1).compare(query) == 0 ) {
+		cout << "Not Found\n";
+		//set the index to less than 1
+		index = -2;
+		return NOT_FOUND;
+	}
+
+	//Else the substring of the query does not exist in the dictionary
+	return NOSUBSTRING;
+	cout << "No substring found, short circuiting\n";
 }
 
 //Overloaded << operator for printing
