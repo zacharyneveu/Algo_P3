@@ -15,7 +15,7 @@
 using namespace std;
 
 typedef enum result {
-	FOUND, NOT_FOUND, NOSUBSTRING
+	FOUND, NOT_FOUND, NO_SUBSTRING
 } Result;
 
 class dictionary
