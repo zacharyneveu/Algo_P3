@@ -94,23 +94,19 @@ void findMatches(dictionary list, grid matrix)
 					int index = 0; //variable to be returned by binary search
 
 					//TODO switch back to improved binary when non-buggy
+					//If word is not substring of anything
 					/*
-					switch(list.improvedBinarySearch(currWord,index))
+					if(list.improvedBinarySearch(currWord,index)==NO_SUBSTRING)
 					{
-						case FOUND:
-							cout<<list.getDictionary()[index]<<" ";
-							cout<<"col: "<<col<<" ";
-							cout<<"row: "<<row<<" ";
-							cout<<index<<" ";
-							cout<<endl;
-							break;
-						case NOT_FOUND:
-							continue;
-							break;
-						case NO_SUBSTRING:
-							goto exit_length_loop;
-							break;
-					}//endcase
+						break;
+					}
+
+					//if word is full word or substring (full word could also be
+					//substring)
+					else
+					{
+						continue
+					}
 					*/
 
 					//delete this block once improvedBinarySearch works
@@ -141,6 +137,7 @@ void findMatches(dictionary list, grid matrix)
 
 
 //Simple mod function used to calculate modulus, not remainder
+//mod operator removed for greater efficiency
 int mod (int a, int b)
 {
    	int ret = a;

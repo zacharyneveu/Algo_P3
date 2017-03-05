@@ -101,6 +101,14 @@ Result dictionary::improvedBinarySearch(string query, int &index) {
 		if (dict[middle].compare(query) == 0)      // If value is found at mid
 		{
 			index = middle;
+
+			//print found words directly here
+			cout<<middle<<" ";
+			cout<<"col: "<<col<<" ";
+			cout<<"row: "<<row<<" ";
+			cout<<index<<" ";
+			cout<<endl;
+
 			return FOUND;
 		}
 		else if (dict[middle].compare(query) > 0)  // If value is in lower half

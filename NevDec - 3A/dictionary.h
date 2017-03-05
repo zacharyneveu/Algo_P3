@@ -24,8 +24,8 @@ private:
 	vector<string> dict;
 public:
 	//constructor
-	dictionary() {}	
-	
+	dictionary() {}
+
 	//constructor with a given dictionary file
 	dictionary(string input) : dictionary() {
 		read(input);
