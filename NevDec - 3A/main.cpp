@@ -143,9 +143,11 @@ void findMatches(dictionary list, grid matrix)
 //Simple mod function used to calculate modulus, not remainder
 int mod (int a, int b)
 {
-   int ret = a % b;
-   if(ret < 0)
-     ret+=b;
+   	int ret = a;
+   	if(ret >= b)
+	   	ret-=b;
+   	if(ret < 0)
+   		ret+=b;
    return ret;
 }
 
