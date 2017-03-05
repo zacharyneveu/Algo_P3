@@ -25,8 +25,6 @@ int mod(int a, int b);
 //Main function
 int main()
 {
-
-
 	search();
 	system("pause");
 	return 0;
@@ -48,54 +46,55 @@ void findMatches(dictionary list, grid matrix)
 		{
 			for (int direction = 0; direction<8; direction++)
 			{
-				for (int length = MINLENGTH; length<=cols; length++)
+				currWord = "";	//Reset currWord each time
+				for (int length = 0; length<=cols; length++)
 				{
-					currWord = "";	//Reset currWord each time
-					for (int k = 0; k<length; k++)
+					switch (direction)
 					{
-						switch (direction)
-						{
-						case 0:		//Right
-							modx = mod((col + k), cols);
-							mody = row;
-							break;
-						case 1:		//up right diagonal
-							modx = mod((col + k), cols);
-							mody = mod((row + k), rows);
-							break;
-						case 2:		//up
-							modx = col;
-							mody = mod((row + k), rows);
-							break;
-						case 3:		//up left diagonal
-							modx = mod((col - k), cols);
-							mody = mod((row + k), rows);
-							break;
-						case 4:		//left
-							modx = mod((col - k), cols);
-							mody = row;
-							break;
-						case 5:		//left down diagonal
-							modx = mod((col - k), cols);
-							mody = mod((row - k), rows);
-							break;
-						case 6:		//down
-							modx = col;
-							mody = mod((row - k), rows);
-							break;
-						case 7:		//down right diagonal
-							modx = mod((col + k), cols);
-							mody = mod((row - k), rows);
-							break;
-						}
-						currWord += matrix.getGrid()[mody][modx];
-					}//end k loop
+					case 0:		//Right
+						modx = mod((col + length), cols);
+						mody = row;
+						break;
+					case 1:		//up right diagonal
+						modx = mod((col + length), cols);
+						mody = mod((row + length), rows);
+						break;
+					case 2:		//up
+						modx = col;
+						mody = mod((row + length), rows);
+						break;
+					case 3:		//up left diagonal
+						modx = mod((col - length), cols);
+						mody = mod((row + length), rows);
+						break;
+					case 4:		//left
+						modx = mod((col - length), cols);
+						mody = row;
+						break;
+					case 5:		//left down diagonal
+						modx = mod((col - length), cols);
+						mody = mod((row - length), rows);
+						break;
+					case 6:		//down
+						modx = col;
+						mody = mod((row - length), rows);
+						break;
+					case 7:		//down right diagonal
+						modx = mod((col + length), cols);
+						mody = mod((row - length), rows);
+						break;
+					}//endcase
+
+					currWord += matrix.getGrid()[mody][modx];
 
 					//Debugging lines
 					//cout<<"CurrWord: "<<currWord<<endl;
 					//cout<<list.binarySearch(currWord)<<endl;
 
 					int index = 0; //variable to be returned by binary search
+
+					//TODO switch back to improved binary when non-buggy
+					/*
 					switch(list.improvedBinarySearch(currWord,index))
 					{
 						case FOUND:
@@ -111,7 +110,22 @@ void findMatches(dictionary list, grid matrix)
 						case NO_SUBSTRING:
 							goto exit_length_loop;
 							break;
-					}
+					}//endcase
+					*/
+
+					//delete this block once improvedBinarySearch works
+					if(length>=5)
+					{
+						//cout<<"Length greater than 5"<<endl;
+						if(list.binarySearch(currWord)!=-1)
+						{
+							cout<<currWord<<" ";
+							cout<<"col: "<<col<<" ";
+							cout<<"row: "<<row<<" ";
+							cout<<index<<" ";
+							cout<<endl;
+						}
+					}//end length check if
 
 					//cout<<"k = "<<k<<endl;
 					//cout<<"Direction = "<<direction<<endl;
@@ -148,9 +162,10 @@ void search()
 
 	//usee hard-coded dictionary
 	dictionary d;
-	d.read("testDictionary.txt");
+	d.read("sortedDictionary.txt");
 	//cout<<d<<endl;
 
-	d.selectionSort();
+	//Add this line when using unsorted dictionary
+	//d.selectionSort();
 	findMatches(d, g);
 }//End function
