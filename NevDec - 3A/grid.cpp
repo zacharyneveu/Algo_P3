@@ -52,12 +52,12 @@ grid::grid(string filepath)
             fin >> x;
             //add file input to grid
             letterGrid[j][k] = x;
-        }
-    }
+        }//end column loop
+    }//end row loop
 
     //close file before function ends
     fin.close();
-}
+}//end grid constructor
 
 ostream& operator<< (ostream& ostr, grid& matrix)
 {
@@ -75,8 +75,8 @@ ostream& operator<< (ostream& ostr, grid& matrix)
         }
 
         ostr << endl;
-    }
+    }//end print rows loop
 
     //return ostr to end function
     return ostr;
-}
+}//end overloaded << operator

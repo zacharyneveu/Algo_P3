@@ -29,13 +29,12 @@ int shift(const int &base, const int &shift, const int &maxSize);
 //Main function
 int main()
 {
-
     search();
 
     //system pause to keep visual studio terminal open
     system("pause");
     return 0;
-}
+}//end main function
 
 
 //the search function searches the grid and finds all words in the grid
@@ -58,8 +57,8 @@ void findMatches(const dictionary &d, const grid &matrix)
             searchGrid(d, matrix, row, col, 0, -1);
             searchGrid(d, matrix, row, col, 1, -1);
             searchGrid(d, matrix, row, col, -1, 1);
-        }
-    }
+        }//end column loop
+    }//end row loop
 }//End function
 
 //findMatches function uses the search function to match words in the dictionary
@@ -128,11 +127,11 @@ void searchGrid(const dictionary &d, const grid &matrix, int row, int col,
         default:
             //cant reach
             return;
-        }
-    }
+        }//end switch statement
+    }//end while loop for size
 
     return;
-}
+}//end searchGrid() function
 
 //shifts the row or column by a factor, if it goes above the maxSize or below
 //zero shift accordingly. Does not use the mod operator (slightly faster)
@@ -152,4 +151,4 @@ int shift(const int &base, const int &shift, const int &maxSize)
     }
 
     return result;
-}
+}//end shift() function

@@ -18,14 +18,14 @@ using namespace std;
 class grid
 {
 private:
-	matrix<string> letterGrid;
+    matrix<string> letterGrid;
 public:
-	//Constructor takes file name and extracts contents to matrix
-	grid(string filepath);
+    //Constructor takes file name and extracts contents to matrix
+    grid(string filepath);
 
-	//Function to return matrix out of grid object
-	matrix<string> getGrid() const;
+    //Function to return matrix out of grid object
+    matrix<string> getGrid() const;
 
-	//Overloaded << operator to test printing matrix
-	friend ostream& operator<< (ostream& ostr, grid& matrix);
+    //Overloaded << operator to test printing matrix
+    friend ostream& operator<< (ostream& ostr, grid& matrix);
 };

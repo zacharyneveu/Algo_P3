@@ -39,12 +39,12 @@ void dictionary::read(string input)
         }
 
         printf("Read %d items in dictionary.\n", count);
-    }
+    }//end ifile if
     else
     {
         printf("Could not open file!\n");
     }
-}
+}//end read function
 
 //Sort function sorts words in dictionary vector using selectionsort
 void dictionary::selectionSort()
@@ -81,44 +81,14 @@ void dictionary::selectionSort()
             dict[i] = dict[min];
             dict[min] = temp;
         }
-    }
-}
+    }//end for loop over dictionary
+}//end selection sort function
 
-//lookup function uses binary search to determine if a word is in the
-//dictionary, using binary search
-int dictionary::binarySearch(string query)
-{
-    int low = 0,             // First array element
-        high = dict.size() - 1,       // Last array element
-        middle;
-
-    //while there are still terms to compare
-    while (low <= high)
-    {
-        middle = (low + high) / 2;     // Calculate mid point
-
-        if (dict[middle].compare(query) == 0)      // If value is found at mid
-        {
-            return middle;
-        }
-        else if (dict[middle].compare(query) > 0)  // If value is in lower half
-        {
-            high = middle - 1;
-        }
-        else
-        {
-            low = middle + 1;    // If value is in upper half
-        }
-    }
-
-    //return not found
-    return -1;
-}
-
-//lookup function uses binary search to determine if a word is in the
+//improvedBinarySearch() uses binary search to determine if a word is in the
 //dictionary, using binary search.
-//This contains a third options where the query substring can not be contained
-//in the dictionary.
+//
+//This function contains a third option for when the query substring is not
+//contained in the dictionary.
 Result dictionary::improvedBinarySearch(const string &query, int &index) const
 {
     int low = 0,             // First array element
@@ -144,7 +114,7 @@ Result dictionary::improvedBinarySearch(const string &query, int &index) const
         {
             low = middle + 1;    // If value is in upper half
         }
-    } //end while
+    } //end while(low<high)
 
     //do the final compare
     middle = (low + high) / 2;
@@ -155,8 +125,8 @@ Result dictionary::improvedBinarySearch(const string &query, int &index) const
         return FOUND;
     }
 
-    //If the query was not found, iterate up the dictionary, and see if any terms contain the substring
-    //of the query.
+    //If the query was not found, iterate up the dictionary, and see if any
+    //terms contain the substring of the query.
     do
     {
         //If a dictionary entry is found that starts with the query string
@@ -180,7 +150,7 @@ Result dictionary::improvedBinarySearch(const string &query, int &index) const
     //Else the substring of the query does not exist in the dictionary
     index = -2;
     return NO_SUBSTRING;
-}
+}//end improvedBinarySearch()
 
 //Overloaded << operator for printing
 ostream& operator<< (ostream& ostr, const dictionary& dictionary)
@@ -194,4 +164,4 @@ ostream& operator<< (ostream& ostr, const dictionary& dictionary)
 
     //return the ostream object for multiple uses in a line
     return ostr;
-}
+}//end overloaded << operator
