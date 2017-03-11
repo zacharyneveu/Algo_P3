@@ -16,137 +16,182 @@
 //Standard Name Space
 using namespace std; //standard name space
 
-vector<string> dictionary::getDictionary() const{
-	return dict;
+vector<string> dictionary::getDictionary() const
+{
+    return dict;
 }
 
-void dictionary::read(string input) {
-	ifstream iFile(input);
-	string x;
-	//int count;
+void dictionary::read(string input)
+{
+    ifstream iFile(input);
+    string x;
 
-	if (iFile) {
-		string x;
-		int count = 0;
-		while (iFile >> x) {
-			dict.push_back(x);
-			count++;
-		}
-		printf("Read %d items in dictionary.\n", count);
-	}
-	else {
-		printf("Could not open file!\n");
-	}
+    //if the file is valid
+    if (iFile)
+    {
+        string x;
+        int count = 0;
+
+        while (iFile >> x)
+        {
+            dict.push_back(x);
+            count++;
+        }
+
+        printf("Read %d items in dictionary.\n", count);
+    }
+    else
+    {
+        printf("Could not open file!\n");
+    }
 }
 
 //Sort function sorts words in dictionary vector using selectionsort
-void dictionary::selectionSort() {
-	int dictLength = dict.size();
-	int min;
-	string temp;
-	for (int i = 0; i < dictLength - 1; i++)
-	{
-		if (i % 50 == 0) {
-			printf("%d items sorted\n", i);
-		}
-		min = i;//set pos_min to the current index of array
-		for (int j = i + 1; j < dictLength; j++)
-		{
+void dictionary::selectionSort()
+{
+    int dictLength = dict.size();
+    int min;
+    string temp;
 
-			if (dict[j] < dict[min])
-				min = j;
-			//pos_min will keep track of the index that min is in, this is needed when a swap happens
-		}
+    //For the dictionary length
+    for (int i = 0; i < dictLength - 1; i++)
+    {
+        if (i % 50 == 0)
+        {
+            printf("%d items sorted\n", i);
+        }
 
-		//if pos_min no longer equals i than a smaller value must have been found, so a swap must occur
-		if (min != i)
-		{
-			temp = dict[i];
-			dict[i] = dict[min];
-			dict[min] = temp;
-		}
-	}
+        min = i;//set min to the current index of array
+
+        for (int j = i + 1; j < dictLength; j++)
+        {
+            //If the current term is less than the new term,
+            //Set the minimum
+            if (dict[j] < dict[min])
+            {
+                min = j;
+            }
+        }
+
+        //if min no longer equals i than a smaller value must have been found,
+        //swap.
+        if (min != i)
+        {
+            temp = dict[i];
+            dict[i] = dict[min];
+            dict[min] = temp;
+        }
+    }
 }
 
 //lookup function uses binary search to determine if a word is in the
 //dictionary, using binary search
-int dictionary::binarySearch(string query) {
-	int low = 0,             // First array element
-		high = dict.size() - 1,       // Last array element
-		middle;
-	while (low <= high)
-	{
-		middle = (low + high) / 2;     // Calculate mid point
-		if (dict[middle].compare(query) == 0)      // If value is found at mid
-		{
-			return middle;
-		}
-		else if (dict[middle].compare(query) > 0)  // If value is in lower half
-			high = middle - 1;
-		else
-			low = middle + 1;           // If value is in upper half
-	}
-	return -1;
+int dictionary::binarySearch(string query)
+{
+    int low = 0,             // First array element
+        high = dict.size() - 1,       // Last array element
+        middle;
+
+    //while there are still terms to compare
+    while (low <= high)
+    {
+        middle = (low + high) / 2;     // Calculate mid point
+
+        if (dict[middle].compare(query) == 0)      // If value is found at mid
+        {
+            return middle;
+        }
+        else if (dict[middle].compare(query) > 0)  // If value is in lower half
+        {
+            high = middle - 1;
+        }
+        else
+        {
+            low = middle + 1;    // If value is in upper half
+        }
+    }
+
+    //return not found
+    return -1;
 }
 
 //lookup function uses binary search to determine if a word is in the
-//dictionary, using binary search
-Result dictionary::improvedBinarySearch(string query, int &index) {
-	int low = 0,             // First array element
-		high = dict.size() - 1,       // Last array element
-		middle;
-	while (low < high)
-	{
-		middle = (low + high) / 2;     // Calculate mid point
-		if (dict[middle].compare(query) == 0)      // If value is found at mid
-		{
-			index = middle;
+//dictionary, using binary search.
+//This contains a third options where the query substring can not be contained
+//in the dictionary.
+Result dictionary::improvedBinarySearch(const string &query, int &index) const
+{
+    int low = 0,             // First array element
+        high = dict.size() - 1,       // Last array element
+        middle;
 
-			//print found words directly here
-			cout<<middle<<" ";
-			cout<<"col: "<<col<<" ";
-			cout<<"row: "<<row<<" ";
-			cout<<index<<" ";
-			cout<<endl;
+    //while there are still terms to search for
+    //(last element is handled differntly in this version)
+    while (low < high)
+    {
+        middle = (low + high) / 2;     // Calculate mid point
 
-			return FOUND;
-		}
-		else if (dict[middle].compare(query) > 0)  // If value is in lower half
-			high = middle - 1;
-		else
-			low = middle + 1;           // If value is in upper half
-	} //end while
+        if (dict[middle].compare(query) == 0)      // If value is found at mid
+        {
+            index = middle;
+            return FOUND;
+        }
+        else if (dict[middle].compare(query) > 0)  // If value is in lower half
+        {
+            high = middle - 1;
+        }
+        else
+        {
+            low = middle + 1;    // If value is in upper half
+        }
+    } //end while
 
-	//If the string has not been found and we are on the file compare.
-	//DUBUG
-	cout << dict[middle - 1] << endl;
-	cout << dict[middle] << endl;
-	cout << dict[middle + 1] << endl;
+    //do the final compare
+    middle = (low + high) / 2;
 
-	//compare the dictionary entry of length query to see if query is a substring of the word
-	if (dict[middle].substr(0, query.length() - 1).compare(query) == 0 ||
-		dict[middle + 1].substr(0, query.length() - 1).compare(query) == 0 ||
-		dict[middle - 1].substr(0, query.length() - 1).compare(query) == 0 ) {
-		cout << "Not Found\n";
-		//set the index to less than 1
-		index = -2;
-		return NOT_FOUND;
-	}
+    if (dict[middle].compare(query) == 0)      // If value is found at mid
+    {
+        index = middle;
+        return FOUND;
+    }
 
-	//Else the substring of the query does not exist in the dictionary
-	return NO_SUBSTRING;
-	cout << "No substring found, short circuiting\n";
+    //If the query was not found, iterate up the dictionary, and see if any terms contain the substring
+    //of the query.
+    do
+    {
+        //If a dictionary entry is found that starts with the query string
+        if (dict[middle].substr(0, query.length()).compare(query) == 0)
+        {
+            //set the index to less than 1
+            index = -1;
+            return NOT_FOUND;
+        }
+        //If the dictionary runs out of items.
+        else if (middle == dict.size() - 1)
+        {
+            index = -2;
+            return NO_SUBSTRING;
+        }
+
+        //continue while the query registers less than the dictionary entry
+    }
+    while (dict[middle++].compare(query) < 0);
+
+    //Else the substring of the query does not exist in the dictionary
+    index = -2;
+    return NO_SUBSTRING;
 }
 
 //Overloaded << operator for printing
 ostream& operator<< (ostream& ostr, const dictionary& dictionary)
 {
-	//iterate over all elements in dictionary
-	for (int i = 0; i < dictionary.getDictionary().size(); i++)
-	{
-		//print the word in the dictionary followed by a new line
-		ostr << dictionary.getDictionary().at(i) << endl;
-	}
-	//return the ostream object for multiple uses in a line
-	return ostr;
+    //iterate over all elements in dictionary
+    for (int i = 0; i < dictionary.getDictionary().size(); i++)
+    {
+        //print the word in the dictionary followed by a new line
+        ostr << dictionary.getDictionary().at(i) << endl;
+    }
+
+    //return the ostream object for multiple uses in a line
+    return ostr;
 }

@@ -24,7 +24,7 @@ public:
 	grid(string filepath);
 
 	//Function to return matrix out of grid object
-	matrix<string> getGrid();
+	matrix<string> getGrid() const;
 
 	//Overloaded << operator to test printing matrix
 	friend ostream& operator<< (ostream& ostr, grid& matrix);

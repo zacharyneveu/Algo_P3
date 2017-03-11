@@ -1,9 +1,9 @@
-
 //Zachary Neveu | neveu.z@husky.neu.edu
 //Jake Dec | dec.j@husky.neu.edu
 //
 //This file includes: Main function for the word search algorithm containing
-//global functions findMatches() and search()
+//global functions findMatches(), search(), and their respective supporting
+//functions.
 //
 
 //Includes
@@ -14,157 +14,142 @@
 #include"grid.h"
 #include"dictionary.h"
 
-#define MINLENGTH 2 //Minimum length of words
+#define MINLENGTH 5 //Minimum length of words
 
 //Standard Name Space
 using namespace std; //standard name space
-void findMatches(dictionary list, grid matrix);
+
+void findMatches(const dictionary &list, const grid &matrix);
 void search();
 int mod(int a, int b);
+void searchGrid(const dictionary &d, const grid &matrix, int row, int col,
+                int modx, int mody);
+int shift(const int &base, const int &shift, const int &maxSize);
 
 //Main function
 int main()
 {
-	search();
-	system("pause");
-	return 0;
+
+    search();
+
+    //system pause to keep visual studio terminal open
+    system("pause");
+    return 0;
 }
 
 
 //the search function searches the grid and finds all words in the grid
-void findMatches(dictionary list, grid matrix)
+void findMatches(const dictionary &d, const grid &matrix)
 {
-	string currWord;
-	vector<string> allWords;
-	int modx = 0;
-	int mody = 0;
-	int rows = matrix.getGrid().rows();
-	int cols = matrix.getGrid().cols();
-	for (int row = 0; row<rows; row++)
-	{
-		for (int col = 0; col<cols; col++)
-		{
-			for (int direction = 0; direction<8; direction++)
-			{
-				currWord = "";	//Reset currWord each time
-				for (int length = 0; length<=cols; length++)
-				{
-					switch (direction)
-					{
-					case 0:		//Right
-						modx = mod((col + length), cols);
-						mody = row;
-						break;
-					case 1:		//up right diagonal
-						modx = mod((col + length), cols);
-						mody = mod((row + length), rows);
-						break;
-					case 2:		//up
-						modx = col;
-						mody = mod((row + length), rows);
-						break;
-					case 3:		//up left diagonal
-						modx = mod((col - length), cols);
-						mody = mod((row + length), rows);
-						break;
-					case 4:		//left
-						modx = mod((col - length), cols);
-						mody = row;
-						break;
-					case 5:		//left down diagonal
-						modx = mod((col - length), cols);
-						mody = mod((row - length), rows);
-						break;
-					case 6:		//down
-						modx = col;
-						mody = mod((row - length), rows);
-						break;
-					case 7:		//down right diagonal
-						modx = mod((col + length), cols);
-						mody = mod((row - length), rows);
-						break;
-					}//endcase
+    string currWord;
+    int rows = matrix.getGrid().rows();
+    int cols = matrix.getGrid().cols();
 
-					currWord += matrix.getGrid()[mody][modx];
-
-					//Debugging lines
-					//cout<<"CurrWord: "<<currWord<<endl;
-					//cout<<list.binarySearch(currWord)<<endl;
-
-					int index = 0; //variable to be returned by binary search
-
-					//TODO switch back to improved binary when non-buggy
-					//If word is not substring of anything
-					/*
-					if(list.improvedBinarySearch(currWord,index)==NO_SUBSTRING)
-					{
-						break;
-					}
-
-					//if word is full word or substring (full word could also be
-					//substring)
-					else
-					{
-						continue
-					}
-					*/
-
-					//delete this block once improvedBinarySearch works
-					if(length>=5)
-					{
-						//cout<<"Length greater than 5"<<endl;
-						if(list.binarySearch(currWord)!=-1)
-						{
-							cout<<currWord<<" ";
-							cout<<"col: "<<col<<" ";
-							cout<<"row: "<<row<<" ";
-							cout<<index<<" ";
-							cout<<endl;
-						}
-					}//end length check if
-
-					//cout<<"k = "<<k<<endl;
-					//cout<<"Direction = "<<direction<<endl;
-				}//end length loop
-				exit_length_loop: ;
-				//cout<<"Length = "<<length<<endl;
-			}//end direction loop
-			//cout<<"Col = "<<col<<endl;
-		}//End columns loop
-		//cout<<"Row = "<<row<<endl;
-	}//End rows loop
+    for (int row = 0; row < rows; row++)
+    {
+        for (int col = 0; col < cols; col++)
+        {
+            //search the current grid square in all 8 directions
+            searchGrid(d, matrix, row, col, 1, 0);
+            searchGrid(d, matrix, row, col, 1, 1);
+            searchGrid(d, matrix, row, col, -1, 0);
+            searchGrid(d, matrix, row, col, -1, -1);
+            searchGrid(d, matrix, row, col, 0, 1);
+            searchGrid(d, matrix, row, col, 0, -1);
+            searchGrid(d, matrix, row, col, 1, -1);
+            searchGrid(d, matrix, row, col, -1, 1);
+        }
+    }
 }//End function
-
-
-//Simple mod function used to calculate modulus, not remainder
-//mod operator removed for greater efficiency
-int mod (int a, int b)
-{
-   	int ret = a;
-   	if(ret >= b)
-	   	ret-=b;
-   	if(ret < 0)
-   		ret+=b;
-   return ret;
-}
 
 //findMatches function uses the search function to match words in the dictionary
 //with words found in the grid and prints all found matches
 void search()
 {
-	//Get grid name from user
-	string gridName;
-	cout<<"Enter the file name of the word grid: ";
-	cin>>gridName;
-	grid g(gridName);
-	//cout<<g<<endl;
+    //Get grid name from user
+    string gridName;
+    cout << "Enter the file name of the word grid: ";
+    cin >> gridName;
+    grid g(gridName);
 
-	//usee hard-coded dictionary
-	dictionary d;
-	d.read("sortedDictionary.txt");
-	//cout<<d<<endl;
-
-	//Add this line when using unsorted dictionary
-	//d.selectionSort();
-	findMatches(d, g);
+    //use hard-coded dictionary
+    dictionary d;
+    d.read("sortedDictionary.txt");
+    //if using something other than the sorted dictionary, sort it
+    //d.selectionSort();
+    findMatches(d, g);
 }//End function
+
+//searches an x,y position in the grid (row, col) in a given direction, given
+//by modx, mody will create a query string and search each against the
+//dictionary until it wraps around, or the query substring is not found
+//in the dictionary.
+void searchGrid(const dictionary &d, const grid &matrix, int row, int col,
+                int modx, int mody)
+{
+    string query = "";
+    int index;
+    const int initialRow = row;
+    const int initialCol = col;
+    int size = matrix.getGrid().rows();
+
+    //build the minimum size word
+    while (query.length() < MINLENGTH)
+    {
+        query += matrix.getGrid()[row][col];
+        row = shift(row, modx, size);
+        col = shift(col, mody, size);
+    }
+
+    //while the query length is less than the maximum query size
+    while (query.length() <= size)
+    {
+        //do the binary search and switch over the enum result
+        switch (d.improvedBinarySearch(query, index))
+        {
+        //If found, print out the word and information.
+        case FOUND:
+            printf("Word: %s Row: %d Col: %d Index: %d\n",
+                   query.c_str(), initialRow, initialCol, index);
+
+        //fall through
+        //If found or not found, add the next letter to the query
+        case NOT_FOUND:
+            query += matrix.getGrid()[row][col];
+            row = shift(row, modx, size);
+            col = shift(col, mody, size);
+            break;
+
+        //the query string is not a substring of any item in the dictionary,
+        //end search in this direction.
+        case NO_SUBSTRING:
+            return;
+
+        default:
+            //cant reach
+            return;
+        }
+    }
+
+    return;
+}
+
+//shifts the row or column by a factor, if it goes above the maxSize or below
+//zero shift accordingly. Does not use the mod operator (slightly faster)
+int shift(const int &base, const int &shift, const int &maxSize)
+{
+    //shift the base number
+    int result = base + shift;
+
+    //if it falls out of the array range, loop around to other side of array
+    if (result < 0)
+    {
+        result += maxSize;
+    }
+    else if (result == maxSize)
+    {
+        result -= maxSize;
+    }
+
+    return result;
+}
