@@ -65,18 +65,26 @@ void findMatches(const dictionary &d, const grid &matrix)
 //with words found in the grid and prints all found matches
 void search()
 {
+	string dictionaryString = "partialDictionary.txt"; //dictionary to use
+
+	//inform user of dictionary that will be used.
+	cout << "Currently using dictionary: " << dictionaryString << endl;
+
+	//use hard-coded dictionary
+	dictionary d(dictionaryString);
+	d.selectionSort();
+	cout << "Dictionary sorted!\n\n";
+
     //Get grid name from user
     string gridName;
     cout << "Enter the file name of the word grid: ";
     cin >> gridName;
-    grid g(gridName);
 
-    //use hard-coded dictionary
-    dictionary d;
-    d.read("sortedDictionary.txt");
-    //if using something other than the sorted dictionary, sort it
-    //d.selectionSort();
-    findMatches(d, g);
+	//read grid from file
+    grid g(gridName);
+	   
+	//search the grid for matches
+	findMatches(d, g);
 }//End function
 
 //searches an x,y position in the grid (row, col) in a given direction, given

@@ -28,7 +28,9 @@ grid::grid(string filepath)
 
     if (!fin) //if file not opened
     {
-        cout << "Sorry File Could Not Be Opened" << endl;
+        cout << "File could not be opened, exiting..." << endl;
+		system("pause");
+		exit(1);
     }
 
     string x; //used to store string to be added to grid
