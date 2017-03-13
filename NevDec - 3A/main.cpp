@@ -72,19 +72,20 @@ void search()
 
     //use hard-coded dictionary
     dictionary d(dictionaryString);
-    d.selectionSort();
+    d.quicksort();
     cout << "Dictionary sorted!\n\n";
+	cout<<d<<endl;
 
-    //Get grid name from user
-    string gridName;
-    cout << "Enter the file name of the word grid: ";
-    cin >> gridName;
+	//Get grid name from user
+	string gridName;
+	cout << "Enter the file name of the word grid: ";
+	cin >> gridName;
 
-    //read grid from file
-    grid g(gridName);
+	//read grid from file
+	grid g(gridName);
 
-    //search the grid for matches
-    findMatches(d, g);
+	//search the grid for matches
+	findMatches(d, g);
 }//End function
 
 //searches an x,y position in the grid (row, col) in a given direction, given

@@ -84,6 +84,51 @@ void dictionary::selectionSort()
     }//end for loop over dictionary
 }//end selection sort function
 
+void dictionary::quicksort()
+{
+	//find rightmost index of dictionary
+	int right = dict.size()-1;
+
+	//call quicksort with arguments to sort dictionary
+	quicksort(0,right);
+}
+
+//Quicksort function sorts dictionary vector faster than selection sort did
+void dictionary::quicksort(int left, int right)
+{
+	if(left<right)
+	{
+		int s=partition(left, right);
+		quicksort(left, s-1);
+		quicksort(s, right);
+	}
+}
+
+int dictionary::partition(int left, int right)
+{
+	string x=dict[right];
+	int i = left - 1;
+	string temp;
+	for (int j=left; j<right; j++)
+	{
+		if(dict[j]<=x)
+		{
+			//increment i
+			i++;
+
+			//swap dict[i] and dict[j]
+			temp = dict[j];
+			dict[j]=dict[i];
+			dict[i]=temp;
+		}
+		//swap dict[i+1] and dict
+		temp = dict[right];
+		dict[right]=dict[i+1];
+		dict[i+1]=temp;
+	}
+	return i+1;
+}
+
 //improvedBinarySearch() uses binary search to determine if a word is in the
 //dictionary, using binary search.
 //
