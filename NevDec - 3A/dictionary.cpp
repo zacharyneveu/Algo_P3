@@ -44,8 +44,8 @@ void dictionary::read(string input)
     else
     {
         printf("Could not open dictionary file, exiting...\n");
-		system("pause");
-		exit(1);
+        system("pause");
+        exit(1);
     }
 }//end read function
 
@@ -59,10 +59,10 @@ void dictionary::selectionSort()
     //For the dictionary length
     for (int i = 0; i < dictLength - 1; i++)
     {
-		//set min to the current index of array
+        //set min to the current index of array
         min = i;
 
-		//for all unsorted items
+        //for all unsorted items
         for (int j = i + 1; j < dictLength; j++)
         {
             //If the current term is less than the new term,
@@ -104,21 +104,21 @@ Result dictionary::binarySearch(const string &query, int &index) const
     //(last element is handled differntly in this version)
     while (low < high)
     {
-		// Calculate mid point
+        // Calculate mid point
         middle = (low + high) / 2;
 
-		// If value is found at mid
+        // If value is found at mid
         if (dict[middle].compare(query) == 0)
         {
             index = middle;
             return FOUND;
         }
-		// If value is in lower half
+        // If value is in lower half
         else if (dict[middle].compare(query) > 0)
         {
             high = middle - 1;
         }
-		// If value is in upper half
+        // If value is in upper half
         else
         {
             low = middle + 1;
@@ -127,7 +127,8 @@ Result dictionary::binarySearch(const string &query, int &index) const
 
     //do the final compare
     middle = (low + high) / 2;
-	// If value is found at mid
+
+    // If value is found at mid
     if (dict[middle].compare(query) == 0)
     {
         index = middle;
@@ -136,7 +137,7 @@ Result dictionary::binarySearch(const string &query, int &index) const
 
     //If the query was not found, iterate up the dictionary, and see if any
     //terms contain the substring of the query. Until the query is greater than
-	//dictionary entry
+    //dictionary entry
     do
     {
         //If a dictionary entry is found that starts with the query string

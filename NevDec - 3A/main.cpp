@@ -43,7 +43,7 @@ void findMatches(const dictionary &d, const grid &matrix)
     int rows = matrix.getGrid().rows();
     int cols = matrix.getGrid().cols();
 
-	//for each grid square
+    //for each grid square
     for (int row = 0; row < rows; row++)
     {
         for (int col = 0; col < cols; col++)
@@ -65,26 +65,26 @@ void findMatches(const dictionary &d, const grid &matrix)
 //with words found in the grid and prints all found matches
 void search()
 {
-	string dictionaryString = "partialDictionary.txt"; //dictionary to use
+    string dictionaryString = "partialDictionary.txt"; //dictionary to use
 
-	//inform user of dictionary that will be used.
-	cout << "Currently using dictionary: " << dictionaryString << endl;
+    //inform user of dictionary that will be used.
+    cout << "Currently using dictionary: " << dictionaryString << endl;
 
-	//use hard-coded dictionary
-	dictionary d(dictionaryString);
-	d.selectionSort();
-	cout << "Dictionary sorted!\n\n";
+    //use hard-coded dictionary
+    dictionary d(dictionaryString);
+    d.selectionSort();
+    cout << "Dictionary sorted!\n\n";
 
     //Get grid name from user
     string gridName;
     cout << "Enter the file name of the word grid: ";
     cin >> gridName;
 
-	//read grid from file
+    //read grid from file
     grid g(gridName);
-	   
-	//search the grid for matches
-	findMatches(d, g);
+
+    //search the grid for matches
+    findMatches(d, g);
 }//End function
 
 //searches an x,y position in the grid (row, col) in a given direction, given
