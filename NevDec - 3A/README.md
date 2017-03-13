@@ -23,4 +23,9 @@ word is printed to the console.  If the string is not a substring of anything,
 no subsequent searches are made to save time.  The length of strings can be
 extended until the string is equal to the size of the grid.
 
-BINARY
+INCLUDED RESOURCES
+dictionary.txt - provided dictionary
+partialDictionary - first 500 words from dictionary, plus all the word search result
+					for testing sort.
+sortedDictionary - sorted full dictionary (case insensitive)
+inputxx.txt grid files
