@@ -86,12 +86,12 @@ void dictionary::selectionSort()
 //dictionary, using binary search.
 //
 //This function contains a third option for when the query substring is not
-//contained in the dictionary. This is accomplished by comparing the substring of the query
-//to the dictionary words after the traditional binary search is complete. If there is a 
-//substring match with the beging of the dictionary word, then it will return not found.
-//if the substring of query is not found in the dictionary at all it will return that no
-//substring is found, and that there is no likelyhood that adding additional letters to query
-//will return any dictionary matches.
+//contained in the dictionary. This is accomplished by comparing the substring
+//of the query to the dictionary words after the traditional binary search is
+//complete. If there is a substring match with the beginning of the dictionary
+//word, then it will return not found. If the substring of query is not found
+//in the dictionary at all it will return that no substring is found, and that
+//there is no likelihood that adding additional letters to query will return any dictionary matches.
 Result dictionary::binarySearch(const string &query, int &index) const
 {
     int low = 0,             // First array element
@@ -103,30 +103,30 @@ Result dictionary::binarySearch(const string &query, int &index) const
     while (low < high)
     {
 		// Calculate mid point
-        middle = (low + high) / 2;     
-		
+        middle = (low + high) / 2;
+
 		// If value is found at mid
-        if (dict[middle].compare(query) == 0)     
+        if (dict[middle].compare(query) == 0)
         {
             index = middle;
             return FOUND;
         }
 		// If value is in lower half
-        else if (dict[middle].compare(query) > 0)  
+        else if (dict[middle].compare(query) > 0)
         {
             high = middle - 1;
         }
 		// If value is in upper half
         else
         {
-            low = middle + 1;    
+            low = middle + 1;
         }
     } //end while(low<high)
 
     //do the final compare
     middle = (low + high) / 2;
 	// If value is found at mid
-    if (dict[middle].compare(query) == 0)  
+    if (dict[middle].compare(query) == 0)
     {
         index = middle;
         return FOUND;
