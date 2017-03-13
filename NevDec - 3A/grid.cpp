@@ -13,7 +13,6 @@
 #include"d_matrix.h"//Included for matrix operations
 #include<fstream> 	//Included for file operations
 
-//Standard Name Space
 using namespace std; //standard name space
 
 matrix<string> grid::getGrid() const

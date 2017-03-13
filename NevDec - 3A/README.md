@@ -22,3 +22,5 @@ the search is repeated.  Every time a string is found to be a full word, the
 word is printed to the console.  If the string is not a substring of anything,
 no subsequent searches are made to save time.  The length of strings can be
 extended until the string is equal to the size of the grid.
+
+BINARY

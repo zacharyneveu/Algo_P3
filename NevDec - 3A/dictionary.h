@@ -41,11 +41,7 @@ public:
 
     //lookup function uses binary search to determine if a word is in the
     //dictionary, using binary search
-    int binarySearch(string query);
-
-    //lookup function uses binary search to determine if a word is in the
-    //dictionary, using binary search
-    Result improvedBinarySearch(const string &query, int &index) const;
+    Result binarySearch(const string &query, int &index) const;
 
     //overloaded << operator prints the word list
     friend ostream& operator<< (ostream& ostr, const dictionary &dictionary);

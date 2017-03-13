@@ -16,12 +16,11 @@
 
 #define MINLENGTH 5 //Minimum length of words
 
-//Standard Name Space
-using namespace std; //standard name space
+using namespace std;  //standard name space
 
+//prototypes
 void findMatches(const dictionary &list, const grid &matrix);
 void search();
-int mod(int a, int b);
 void searchGrid(const dictionary &d, const grid &matrix, int row, int col,
                 int modx, int mody);
 int shift(const int &base, const int &shift, const int &maxSize);
@@ -44,6 +43,7 @@ void findMatches(const dictionary &d, const grid &matrix)
     int rows = matrix.getGrid().rows();
     int cols = matrix.getGrid().cols();
 
+	//for each grid square
     for (int row = 0; row < rows; row++)
     {
         for (int col = 0; col < cols; col++)
@@ -104,7 +104,7 @@ void searchGrid(const dictionary &d, const grid &matrix, int row, int col,
     while (query.length() <= size)
     {
         //do the binary search and switch over the enum result
-        switch (d.improvedBinarySearch(query, index))
+        switch (d.binarySearch(query, index))
         {
         //If found, print out the word and information.
         case FOUND:
@@ -140,7 +140,7 @@ int shift(const int &base, const int &shift, const int &maxSize)
     //shift the base number
     int result = base + shift;
 
-    //if it falls out of the array range, loop around to other side of array
+    //if it falls out of the array range, loop around to other side of grid
     if (result < 0)
     {
         result += maxSize;
