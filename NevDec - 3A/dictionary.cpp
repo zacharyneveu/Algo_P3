@@ -43,7 +43,9 @@ void dictionary::read(string input)
     }//end ifile if
     else
     {
-        printf("Could not open file!\n");
+        printf("Could not open dictionary file, exiting...\n");
+		system("pause");
+		exit(1);
     }
 }//end read function
 
