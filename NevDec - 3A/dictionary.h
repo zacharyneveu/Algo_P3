@@ -23,8 +23,7 @@ class dictionary
 {
 private:
     vector<string> dict;
-public:
-    //constructor
+public:    //constructor
     dictionary() {}
 
     //constructor with a given dictionary file
