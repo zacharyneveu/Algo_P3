@@ -44,9 +44,6 @@
     <Text Include="sortedDictionary.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="dictionary2.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md">

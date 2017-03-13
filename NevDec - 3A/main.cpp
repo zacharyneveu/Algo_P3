@@ -61,7 +61,7 @@ void findMatches(const dictionary &d, const grid &matrix)
     }//end row loop
 }//End function
 
-//findMatches function uses the search function to match words in the dictionary
+//search function uses the search function to match words in the dictionary
 //with words found in the grid and prints all found matches
 void search()
 {
