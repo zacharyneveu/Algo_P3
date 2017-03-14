@@ -27,8 +27,9 @@ private:
 	//partition function used by quicksort to divide and conquer
 	int partition(int left, int right);
 
-	//Quicksort function sorts dictionary vector faster than selection sort did
-	void quicksort(int left, int right);
+	//swap function used by quicksort to swap positions of words
+	void swap(int index1, int index2);
+
 public:    //constructor
     dictionary() {}
 
@@ -44,8 +45,8 @@ public:    //constructor
     //Sort function sorts words in dictionary vector using selectionsort
     void selectionSort();
 
-	//quicksort with no arguments sorts whole dictionary
-	void quicksort();
+	//Quicksort function sorts dictionary vector faster than selection sort did
+	void quicksort(int left, int right);
 
     //lookup function uses binary search to determine if a word is in the
     //dictionary, using binary search

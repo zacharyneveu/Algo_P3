@@ -84,51 +84,42 @@ void dictionary::selectionSort()
     }//end for loop over dictionary
 }//end selection sort function
 
-void dictionary::quicksort()
-{
-	//find rightmost index of dictionary
-	int right = dict.size()-1;
-
-	//call quicksort with arguments to sort dictionary
-	quicksort(0,right);
-}
-
 //Quicksort function sorts dictionary vector faster than selection sort did
 void dictionary::quicksort(int left, int right)
 {
-	if(left<right)
+	int s;
+	if(left < right)
 	{
-		int s=partition(left, right);
+		s = partition(left, right);
 		quicksort(left, s-1);
-		quicksort(s, right);
+		quicksort(s+1, right);
 	}
 }
 
 int dictionary::partition(int left, int right)
 {
-	string x=dict[right];
-	int i = left - 1;
-	string temp;
-	for (int j=left; j<right; j++)
-	{
-		if(dict[j]<=x)
-		{
-			//increment i
-			i++;
+	int p = left;
+	string pival = dict[left];
 
-			//swap dict[i] and dict[j]
-			temp = dict[j];
-			dict[j]=dict[i];
-			dict[i]=temp;
+	for (int i= left+1; i<= right; i++)
+	{
+		if (dict[i] <= pival) //if dict[i] is smaller than left side (pivot)
+		{
+			p++; //increment p
+			swap(i,p); //swap dict[i] and dict[p]
 		}
-		//swap dict[i+1] and dict
-		temp = dict[right];
-		dict[right]=dict[i+1];
-		dict[i+1]=temp;
 	}
-	return i+1;
+	swap(p, left); //swap final p with pivot
+
+	return p;
 }
 
+void dictionary::swap(int index1, int index2)
+{
+	string temp = dict[index1];
+	dict[index1]=dict[index2];
+	dict[index2]=temp;
+}
 //improvedBinarySearch() uses binary search to determine if a word is in the
 //dictionary, using binary search.
 //
@@ -211,8 +202,9 @@ Result dictionary::binarySearch(const string &query, int &index) const
 //Overloaded << operator for printing
 ostream& operator<< (ostream& ostr, const dictionary& dictionary)
 {
+	int max = dictionary.getDictionary().size();
     //iterate over all elements in dictionary
-    for (int i = 0; i < dictionary.getDictionary().size(); i++)
+    for (int i = 0; i < max; i++)
     {
         //print the word in the dictionary followed by a new line
         ostr << dictionary.getDictionary().at(i) << endl;
