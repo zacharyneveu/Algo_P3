@@ -12,6 +12,7 @@
 #include<string>
 #include<vector>
 #include"dictionary.h"
+#include"heap.h"
 
 using namespace std; //standard name space
 
@@ -113,6 +114,18 @@ int dictionary::partition(int left, int right)
 
 	return p;
 }
+
+//Heapsort uses the heap class to sort dictionary vector quickly
+void dictionary::heapsort()
+{
+	heap<string> sortingHeap;
+	sortingHeap.initializeMaxHeap(dict);
+	sortingHeap.buildMaxHeap();
+
+	//assign dictionary to sorted heap
+	dict = sortingHeap.maxHeapSort();
+}
+
 
 void dictionary::swap(int index1, int index2)
 {

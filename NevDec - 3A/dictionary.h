@@ -10,6 +10,7 @@
 #include<iostream>
 #include<string>
 #include<vector>
+#include"heap.h"
 
 //standard namespace
 using namespace std;
@@ -47,6 +48,9 @@ public:    //constructor
 
 	//Quicksort function sorts dictionary vector faster than selection sort did
 	void quicksort(int left, int right);
+
+	//Heapsort uses the heap class to sort dictionary vector quickly
+	void heapsort();
 
     //lookup function uses binary search to determine if a word is in the
     //dictionary, using binary search

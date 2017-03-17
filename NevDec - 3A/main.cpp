@@ -7,12 +7,12 @@
 //
 
 //Includes
-#include<iostream>
-#include<vector>
-#include"d_matrix.h"
-#include<string>
-#include"grid.h"
-#include"dictionary.h"
+#include<iostream>		//standard i/o
+#include"d_matrix.h"	//matrix class for grid
+#include<string>		//basic c++ strings
+#include"grid.h"		//grid class for storing wordsearch grid
+#include"dictionary.h"	//dictionary class to store dictionary
+#include<time.h>
 
 #define MINLENGTH 5 //Minimum length of words
 
@@ -26,9 +26,18 @@ void searchGrid(const dictionary &d, const grid &matrix, int row, int col,
 int shift(const int &base, const int &shift, const int &maxSize);
 
 //Main function
+//TODO: Remove clocks, those are there to graph runtimes
 int main()
 {
-    search();
+	clock_t t1,t2;
+	t1 = clock();
+
+    search();	//initializes dictionary, asks for grid name and solves
+
+	t2 = clock();
+	float diff((float)t2-(float)t1);
+	float seconds = diff / CLOCKS_PER_SEC;
+	cout<<"Runtime: "<<seconds<<endl;
 
     //system pause to keep visual studio terminal open
     system("pause");
@@ -65,30 +74,50 @@ void findMatches(const dictionary &d, const grid &matrix)
 //with words found in the grid and prints all found matches
 void search()
 {
-    string dictionaryString = "dictionary.txt"; //dictionary to use
+    string dictionaryString = "partialDictionary.txt"; //dictionary to use
 
     //inform user of dictionary that will be used.
     cout << "Currently using dictionary: " << dictionaryString << endl;
 
     //use hard-coded dictionary
     dictionary d(dictionaryString);
-	int maxindex = d.getDictionary().size()-1;
-    d.quicksort(0, maxindex);
+
+	bool incheck = false; //checks if valid input is entered
+	while(incheck == false)
+	{
+		cout<<"Enter 0 for selection sort, 1 for quicksort, or two for heapsort: ";
+		int select=3;
+		cin>>select;
+
+		//maxindex used to start quicksort at the right place
+		int maxindex = d.getDictionary().size()-1;
+		switch(select)
+		{
+			case 0: d.selectionSort();
+					incheck = true;
+					break;
+			case 1: d.quicksort(0, maxindex);
+					incheck = true;
+					break;
+			case 2: d.heapsort();
+					incheck = true;
+					break;
+			default: cout<<"Invalid input"<<endl;
+		}
+	}
     cout << "Dictionary sorted!\n\n";
 	cout<<d<<endl;
 
-/*
- *     //Get grid name from user
- *     string gridName;
- *     cout << "Enter the file name of the word grid: ";
- *     cin >> gridName;
- *
- *     //read grid from file
- *     grid g(gridName);
- *
- *     //search the grid for matches
- *     findMatches(d, g);
- */
+	//Get grid name from user
+	string gridName;
+	cout << "Enter the file name of the word grid: ";
+	cin >> gridName;
+
+	//read grid from file
+	grid g(gridName);
+
+	//search the grid for matches
+	findMatches(d, g);
 
 }//End function
 
