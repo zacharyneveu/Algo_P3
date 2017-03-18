@@ -1,4 +1,4 @@
-tat
+
 #ifndef HEAP_H
 #define HEAP_H
 ///Zachary Neveu | neveu.z@husky.neu.edu
@@ -97,13 +97,9 @@ template<class T>
 void heap<T>::initializeMaxHeap(const vector<T> &dictionary)
 {
 
-	string pushvalue = " ";
-	//copy zero-indexed dictionary into 1-indexed data vector
-	data.push_back(pushvalue);
-	for (int i=0; i<=dictionary.size()-1; i++)
-	{
-		data.push_back(dictionary.at(i));
-	}
+	data = dictionary;;
+	data.push_back(data[0]);
+	data[0] = " ";
 
 	//initialize heapsize
 	this->heapsize = data.size()-1;
