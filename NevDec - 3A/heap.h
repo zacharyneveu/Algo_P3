@@ -1,4 +1,4 @@
-
+tat
 #ifndef HEAP_H
 #define HEAP_H
 ///Zachary Neveu | neveu.z@husky.neu.edu
@@ -23,21 +23,21 @@ private:
 	int heapsize;
 
 	//returns parent of object at index passed
-	int parent(int index);
+	int parent(const int &index);
 
 	//returns left child of object at index passed
-	int left(int index);
+	int left(const int &index);
 
 	//returns right child of object at index passed
-	int right(int index);
+	int right(const int &index);
 
 	//maxHeapify ensures that the maxHeap property is upheld at the node
 	//specified by the index passed
-	void maxHeapify(int index);
+	void maxHeapify(const int &index);
 
 public:
 	//returns item at index passed
-	T getItem(int index);
+	T getItem(const int &index);
 
 	//copies given vector into the heap
 	void initializeMaxHeap(const vector<T> &dictionary);
@@ -62,7 +62,7 @@ public:
 
 //returns parent of object at index passed
 template<class T>
-int heap<T>::parent(int index)
+int heap<T>::parent(const int& index)
 {
 	//parent stored at floor of index/2
 	return (index/2);
@@ -70,7 +70,7 @@ int heap<T>::parent(int index)
 
 //returns left child of object at index passed
 template<class T>
-int heap<T>::left(int index)
+int heap<T>::left(const int &index)
 {
 	//left child stored at 2*parent
 	return (index*2);
@@ -78,7 +78,7 @@ int heap<T>::left(int index)
 
 //returns right child of object at index passed
 template<class T>
-int heap<T>::right(int index)
+int heap<T>::right(const int &index)
 {
 	//right child stored at 2*parent+1
 	return (index*2+1);
@@ -87,7 +87,7 @@ int heap<T>::right(int index)
 
 //returns item at index passed
 template<class T>
-T heap<T>::getItem(int index)
+T heap<T>::getItem(const int &index)
 {
 	return data[index];
 }
@@ -125,7 +125,7 @@ void heap<T>::buildMaxHeap()
 //maxHeapify ensures that the maxHeap property is upheld at the node
 //specified by the index passed
 template<class T>
-void heap<T>::maxHeapify(int index)
+void heap<T>::maxHeapify(const int &index)
 {
 	int l = left(index);
 	int r = right(index);
@@ -162,7 +162,7 @@ template<class T>
 vector<T> heap<T>::maxHeapSort()
 {
 	string temp;
-	for (int i=heapsize; i>1; i--)
+	for (int i=heapsize/2; i>1; i--)
 	{
 
 		//swap data[i] and data [1] (first and last elements)

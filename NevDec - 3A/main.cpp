@@ -12,7 +12,7 @@
 #include<string>		//basic c++ strings
 #include"grid.h"		//grid class for storing wordsearch grid
 #include"dictionary.h"	//dictionary class to store dictionary
-#include<time.h>
+#include<time.h>		//used to measure runtimes
 
 #define MINLENGTH 5 //Minimum length of words
 
@@ -29,15 +29,7 @@ int shift(const int &base, const int &shift, const int &maxSize);
 //TODO: Remove clocks, those are there to graph runtimes
 int main()
 {
-	clock_t t1,t2;
-	t1 = clock();
-
     search();	//initializes dictionary, asks for grid name and solves
-
-	t2 = clock();
-	float diff((float)t2-(float)t1);
-	float seconds = diff / CLOCKS_PER_SEC;
-	cout<<"Runtime: "<<seconds<<endl;
 
     //system pause to keep visual studio terminal open
     system("pause");
@@ -74,7 +66,7 @@ void findMatches(const dictionary &d, const grid &matrix)
 //with words found in the grid and prints all found matches
 void search()
 {
-    string dictionaryString = "partialDictionary.txt"; //dictionary to use
+    string dictionaryString = "dictionary.txt"; //dictionary to use
 
     //inform user of dictionary that will be used.
     cout << "Currently using dictionary: " << dictionaryString << endl;
@@ -82,12 +74,17 @@ void search()
     //use hard-coded dictionary
     dictionary d(dictionaryString);
 
+	//clocks used to measure runtime of sort
+	clock_t t1,t2;
+
 	bool incheck = false; //checks if valid input is entered
 	while(incheck == false)
 	{
-		cout<<"Enter 0 for selection sort, 1 for quicksort, or two for heapsort: ";
+		cout<<"Enter 0 for selection sort, 1 for quicksort, or 2 for heapsort: ";
 		int select=3;
 		cin>>select;
+
+		t1 = clock(); //start clock after input received
 
 		//maxindex used to start quicksort at the right place
 		int maxindex = d.getDictionary().size()-1;
@@ -105,8 +102,18 @@ void search()
 			default: cout<<"Invalid input"<<endl;
 		}
 	}
+
+
+	//clocks used to measure runtime of sort
+	t2 = clock();
+	float diff((float)t2-(float)t1);
+	float seconds = diff / CLOCKS_PER_SEC;
+
+
     cout << "Dictionary sorted!\n\n";
-	cout<<d<<endl;
+	//cout<<d<<endl;
+
+	cout<<"Sorting Runtime: "<<seconds<<endl;
 
 	//Get grid name from user
 	string gridName;
