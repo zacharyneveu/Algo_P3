@@ -21,7 +21,6 @@
   <ItemGroup>
     <ClCompile Include="dictionary.cpp" />
     <ClCompile Include="grid.cpp" />
-    <ClCompile Include="heap.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
