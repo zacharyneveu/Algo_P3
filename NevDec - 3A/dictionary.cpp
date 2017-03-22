@@ -88,51 +88,71 @@ void dictionary::selectionSort()
 //Quicksort function sorts dictionary vector faster than selection sort did
 void dictionary::quicksort(int left, int right)
 {
-	int s;
-	if(left < right)
-	{
-		s = partition(left, right);
-		quicksort(left, s-1);
-		quicksort(s+1, right);
-	}
-}
+    int s;
 
+    //break recursion when left==right
+    if (left < right)
+    {
+        //call partition to get pivot index
+        s = partition(left, right);
+        //call quicksort on low half
+        quicksort(left, s - 1);
+        //call quicksort on high half
+        quicksort(s + 1, right);
+    }//endif
+}//end function
+
+//partition function used by quicksort.  This function divides the dictionary
+//into two parts: the left side is all smaller than a certain value, the right
+//side is all bigger than a certain value.  The center item (pivot) has this
+//exact value.  The function returns the index of the pivot.
 int dictionary::partition(int left, int right)
 {
-	int p = left;
-	string pival = dict[left];
+    //start assuming pivot is left value
+    int p = left;
+    //store value of pivot so it doesn't have to be searched repeatedly
+    string pival = dict[left];
 
-	for (int i= left+1; i<= right; i++)
-	{
-		if (dict[i] <= pival) //if dict[i] is smaller than left side (pivot)
-		{
-			p++; //increment p
-			swap(i,p); //swap dict[i] and dict[p]
-		}
-	}
-	swap(p, left); //swap final p with pivot
+    //iterate over all elements in section passed
+    for (int i = left + 1; i <= right; i++)
+    {
+        if (dict[i] <= pival) //if dict[i] is smaller than left side (pivot)
+        {
+            p++; //increment p
+            swap(i, p); //swap dict[i] and dict[p]
+        }//end if
+    }//end for
 
-	return p;
-}
+    swap(p, left); //swap final p with pivot
+
+    return p; //index of pivot
+}//end function
 
 //Heapsort uses the heap class to sort dictionary vector quickly
 void dictionary::heapsort()
 {
-	heap<string> sortingHeap;
-	sortingHeap.initializeMaxHeap(dict);
-	sortingHeap.buildMaxHeap();
+    //construct a heap
+    heap<string> sortingHeap;
 
-	//assign dictionary to sorted heap
-	dict = sortingHeap.maxHeapSort();
-}
+    //initialize the heap with dictionary values
+    sortingHeap.initializeMaxHeap(dict);
+
+    //make heap meet maxHeap property
+    sortingHeap.buildMaxHeap();
+
+    //sort heap, and copy back into dictionary
+    dict = sortingHeap.maxHeapSort();
+}//end function
 
 
+//simple swap function used by quicksort (partition)
 void dictionary::swap(int index1, int index2)
 {
-	string temp = dict[index1];
-	dict[index1]=dict[index2];
-	dict[index2]=temp;
+    string temp = dict[index1];
+    dict[index1] = dict[index2];
+    dict[index2] = temp;
 }
+
 //improvedBinarySearch() uses binary search to determine if a word is in the
 //dictionary, using binary search.
 //
@@ -215,7 +235,8 @@ Result dictionary::binarySearch(const string &query, int &index) const
 //Overloaded << operator for printing
 ostream& operator<< (ostream& ostr, const dictionary& dictionary)
 {
-	int max = dictionary.getDictionary().size();
+    int max = dictionary.getDictionary().size();
+
     //iterate over all elements in dictionary
     for (int i = 0; i < max; i++)
     {

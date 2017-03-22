@@ -61,4 +61,4 @@ public:    //constructor
 
     //return the dictionary
     vector<string> getDictionary() const;
-};
+bre};

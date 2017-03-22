@@ -74,57 +74,68 @@ void search()
     //use hard-coded dictionary
     dictionary d(dictionaryString);
 
-	//clocks used to measure runtime of sort
-	clock_t t1,t2;
+    //clocks used to measure runtime of sort
+    clock_t t1, t2;
 
-	bool incheck = false; //checks if valid input is entered
-	while(incheck == false)
-	{
-		cout<<"Enter 0 for selection sort, 1 for quicksort, or 2 for heapsort: ";
-		int select=3;
-		cin>>select;
+    bool incheck = false; //checks if valid input is entered
 
-		t1 = clock(); //start clock after input received
+    while (incheck == false)
+    {
+        cout << "Enter 0 for selection sort, 1 for quicksort, or 2 for heapsort: ";
+        int select = 3; // any number not 0, 1, or 2
+        cin >> select;
 
-		//maxindex used to start quicksort at the right place
-		int maxindex = d.getDictionary().size()-1;
-		switch(select)
-		{
-			case 0: d.selectionSort();
-					incheck = true;
-					break;
-			case 1: d.quicksort(0, maxindex);
-					incheck = true;
-					break;
-			case 2: d.heapsort();
-					incheck = true;
-					break;
-			default: cout<<"Invalid input"<<endl;
-		}
-	}
+        //clocks used to measure runtime
+        t1 = clock(); //start clock after input received
+
+        //maxindex used to start quicksort at the right place
+        int maxindex = d.getDictionary().size() - 1;
+
+        //switch picks which type of sort user would like
+        switch (select)
+        {
+        case 0:
+            d.selectionSort();
+            incheck = true;
+            break;
+
+        case 1:
+            d.quicksort(0, maxindex);
+            incheck = true;
+            break;
+
+        case 2:
+            d.heapsort();
+            incheck = true;
+            break;
+
+        default:
+            cout << "Invalid input" << endl;
+        }
+    }
 
 
-	//clocks used to measure runtime of sort
-	t2 = clock();
-	float diff((float)t2-(float)t1);
-	float seconds = diff / CLOCKS_PER_SEC;
+    //clocks used to measure runtime of sort
+    t2 = clock();
+    float diff((float)t2 - (float)t1);
+    float seconds = diff / CLOCKS_PER_SEC;
 
 
     cout << "Dictionary sorted!\n\n";
-	//cout<<d<<endl;
+    //cout<<d<<endl;
 
-	cout<<"Sorting Runtime: "<<seconds<<endl;
+    cout << "Sorting Runtime: " << seconds << endl;
 
-	//Get grid name from user
-	string gridName;
-	cout << "Enter the file name of the word grid: ";
-	cin >> gridName;
+    //Get grid name from user
+    string gridName;
+    cout << "Enter the file name of the word grid: ";
+    cin >> gridName;
 
-	//read grid from file
-	grid g(gridName);
+    //read grid from file
+    grid g(gridName);
 
-	//search the grid for matches
-	findMatches(d, g);
+    //search the grid for matches
+    findMatches(d, g);
 
 }//End function
 
