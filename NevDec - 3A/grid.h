@@ -9,6 +9,8 @@
 #include<vector>
 #include<string>
 #include<iostream>
+#include"d_matrix.h"
+#include<fstream>
 
 using namespace std;
 
@@ -16,8 +18,14 @@ using namespace std;
 class grid
 {
 private:
-	vector<vector<char>> grid;
+    matrix<string> letterGrid;
 public:
-	//Constructor takes file name and extracts contents to matrix
-	grid(string filepath);
+    //Constructor takes file name and extracts contents to matrix
+    grid(string filepath);
+
+    //Function to return matrix out of grid object
+    matrix<string> getGrid() const;
+
+    //Overloaded << operator to test printing matrix
+    friend ostream& operator<< (ostream& ostr, grid& matrix);
 };

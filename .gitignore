@@ -6,3 +6,8 @@ NevDec - 3A/x64/Debug/vc140.idb
 *.exe
 x64/Debug/NevDec - 3A.ilk
 *.suo
+NevDec - 3A/NevDec - 3A.vcxproj
+*.filters
+NevDec - 3A.VC.db
+*.opendb
+NevDec - 3A.VC.db
